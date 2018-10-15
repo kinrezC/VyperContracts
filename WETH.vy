@@ -1,13 +1,18 @@
-name: string = "Wrapped Ether"
-symbol: string = "WETH"
-_balances:private(uint256(wei)[address])
-_allowance: private((uint256(wei)[address])[address])
-_totalSupply: private(uint256(wei))
-
 Approval: event({_owner: indexed(address), _spender: indexed(address), _value: uint256(wei)})
 Transfer: event({_from: indexed(address), _to: indexed(address), _value: uint256(wei)})
 Deposit: event({_owner: indexed(address), _value: uint256(wei)})
 Withdrawal: event({_owner: indexed(address), _value: uint256(wei)})
+
+name: public(bytes32)
+symbol: public(bytes32)
+_balances:public(uint256(wei)[address])
+_allowance: public((uint256(wei)[address])[address])
+_totalSupply: public(uint256(wei))
+
+@public
+def __init():
+	self.name = "WrappedEther"
+	self.symbol = "WETH"
 
 @public
 @constant
@@ -35,7 +40,7 @@ def deposit():
 	_sender: address = msg.sender
 	_value: uint256(wei) = msg.value
 	self._totalSupply += _value
-	self._balances[_sender] = self._balances[_sender] += _value
+	self._balances[_sender] = self._balances[_sender] + _value
 	log.Deposit(ZERO_ADDRESS, _sender, _value)
 	
 @public
