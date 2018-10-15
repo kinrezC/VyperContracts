@@ -27,7 +27,7 @@ def totalSupply() -> uint256(wei):
 @public
 @payable
 def __default__():
-	deposit()
+	self.deposit()
 
 @public
 @payable
