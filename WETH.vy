@@ -3,21 +3,21 @@ Transfer: event({_from: indexed(address), _to: indexed(address), _value: uint256
 Deposit: event({_owner: indexed(address), _value: uint256(wei)})
 Withdrawal: event({_owner: indexed(address), _value: uint256(wei)})
 
-name: public(bytes32)
-symbol: public(bytes32)
+name: bytes[13]
+symbol: bytes[4]
 _balances:public(uint256(wei)[address])
 _allowance: public((uint256(wei)[address])[address])
 _totalSupply: public(uint256(wei))
 
 @public
 def __init():
-	self.name = "WrappedEther"
+	self.name = "Wrapped Ether"
 	self.symbol = "WETH"
 
 @public
 @constant
 def getBalance(_address: address) -> uint256(wei):
-	return self._balances[address]
+	return self._balances[_address]
 
 @public
 @constant
@@ -41,8 +41,8 @@ def deposit():
 	_value: uint256(wei) = msg.value
 	self._totalSupply += _value
 	self._balances[_sender] = self._balances[_sender] + _value
-	log.Deposit(ZERO_ADDRESS, _sender, _value)
-	
+	log.Deposit(_sender, _value)
+
 @public
 def withdraw(_amount: uint256(wei)):
 	assert self._balances[msg.sender] >= _amount
