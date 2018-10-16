@@ -3,8 +3,8 @@ Transfer: event({_from: indexed(address), _to: indexed(address), _value: uint256
 Deposit: event({_owner: indexed(address), _value: uint256(wei)})
 Withdrawal: event({_owner: indexed(address), _value: uint256(wei)})
 
-name: bytes[14]
-symbol: bytes[4]
+name: bytes[32]
+symbol: bytes[32]
 _balances:public(uint256(wei)[address])
 _allowance: public((uint256(wei)[address])[address])
 _totalSupply: public(uint256(wei))
